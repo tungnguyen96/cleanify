@@ -1,25 +1,5 @@
 {
   "name": "cleanify",
-  "version": "1.0.0",
-  "description": "Truc nhat 215",
-  "main": "app.js",
-  "scripts": {
-    "start": "node node_modules/nodemon/bin/nodemon.js server.js",
-    "test": "node node_modules/mocha/bin/mocha src/specs/**"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "axios": "^0.18.0",
-    "express": "^4.16.4",
-    "mongoose": "^5.4.19"
-  },
-  "devDependencies": {
-    "chai": "^4.2.0",
-    "eslint": "^5.15.3",
-    "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^2.16.0",
-    "mocha": "^6.0.2",
-    "nodemon": "^1.18.10"
-  }
+  "private": true,
+  "dependencies": {}
 }

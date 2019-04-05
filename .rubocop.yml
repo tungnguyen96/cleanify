@@ -1,0 +1,13 @@
+require: rubocop-performance
+AllCops:   
+  Include:
+    - 'app/controllers/*'
+    - 'app/helpers/*'
+    - 'app/models/*'
+    - 'spec/models/*'
+    - 'spec/views/*'
+  Exclude:
+    - 'bin/**/*'
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
