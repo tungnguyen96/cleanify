@@ -2,17 +2,22 @@ default: &default
   adapter: mysql2
   encoding: utf8
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username:
-  password:
   socket: /var/run/mysqld/mysqld.sock
 
 development:
   <<: *default
+  username:
+  password:
   database: cleanify_development
 
 test:
-  <<: *default
   database: cleanify_test
+  adapter: mysql2
+  encoding: utf8
+  username: root
+  password: ''
+  host: 127.0.0.1
+  port: 3306
 
 production:
   <<: *default
