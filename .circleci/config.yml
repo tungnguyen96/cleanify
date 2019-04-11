@@ -1,0 +1,57 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/ruby:2.5.1-node
+        environment:
+            RAILS_ENV: test
+            MYSQL_ALLOW_EMPTY_PASSWORD: yes
+
+      - image: circleci/mysql:5.7
+
+    working_directory: ~/cleanify
+
+    steps:
+      - checkout
+
+
+      # Restore Cached Dependencies
+      - type: cache-restore
+        name: Restore bundle cache
+        key: your-app-name-{{ checksum "Gemfile.lock" }}
+
+      - run:
+          name: Configure Bundler
+          command: |
+            echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
+            source $BASH_ENV
+            gem install bundler
+
+      - run: bundle install
+
+      # Cache Dependencies
+      - type: cache-save
+        name: Store bundle cache
+        key: your-app-name-{{ checksum "Gemfile.lock" }}
+        paths:
+          - vendor/bundle
+
+      # copy database config
+      - run: cp ./config/database.yml.orig ./config/database.yml
+
+      # wait for db ready
+      - run: dockerize --wait tcp://127.0.0.1:3306 -timeout 120s
+
+      # setup database
+      - run: bundle exec rake db:setup
+
+      # run rubocop
+      - run: bundle exec rubocop
+
+      # run tests!
+      - run: bundle exec rspec
+
+      # coverage:
+
+      - store_artifacts:
+          path: ~/cleanify/coverage
