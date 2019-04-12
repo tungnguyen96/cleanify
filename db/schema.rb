@@ -10,7 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_05_120105) do
+ActiveRecord::Schema.define(version: 2019_04_12_035833) do
+
+  create_table "activities", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "task_id"
+    t.boolean "complete"
+    t.index ["task_id"], name: "index_activities_on_task_id"
+    t.index ["user_id"], name: "index_activities_on_user_id"
+  end
+
+  create_table "tasks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "title"
+    t.integer "price"
+  end
+
+  create_table "transactions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "amount"
+    t.boolean "complete"
+    t.integer "target_id"
+    t.string "target_type"
+  end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -19,8 +39,23 @@ ActiveRecord::Schema.define(version: 2019_04_05_120105) do
     t.string "encrypted_password", limit: 128, null: false
     t.string "confirmation_token", limit: 128
     t.string "remember_token", limit: 128, null: false
+    t.integer "provider_id"
+    t.string "provider_name"
+    t.string "name"
     t.index ["email"], name: "index_users_on_email"
     t.index ["remember_token"], name: "index_users_on_remember_token"
   end
 
+  create_table "votes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "activity_id"
+    t.boolean "value"
+    t.index ["activity_id"], name: "index_votes_on_activity_id"
+    t.index ["user_id"], name: "index_votes_on_user_id"
+  end
+
+  add_foreign_key "activities", "tasks"
+  add_foreign_key "activities", "users"
+  add_foreign_key "votes", "activities"
+  add_foreign_key "votes", "users"
 end
