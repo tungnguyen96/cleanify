@@ -17,7 +17,6 @@ gem "koala"
 group :development, :test do
   gem "simplecov", require: false, group: :test
   gem "rspec-rails"
-  gem "factory_bot"
   gem "awesome_print"
   gem "listen", ">= 3.0.5", "< 3.2"
   gem "pry", platforms: [:mri, :mingw, :x64_mingw]
