@@ -29,3 +29,6 @@
 
 # Ignore test report
 /coverage
+
+# Ignore test tracking
+/spec/examples.txt
