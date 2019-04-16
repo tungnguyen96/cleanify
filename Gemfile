@@ -13,6 +13,7 @@ gem "kaminari"
 gem "simple_form"
 gem "httparty"
 gem "koala"
+gem "grape"
 
 group :development, :test do
   gem "simplecov", require: false, group: :test
