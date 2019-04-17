@@ -3,7 +3,15 @@ class Activity < ApplicationRecord
   belongs_to :user
   has_one :task
 
-  validates :complete, presence: true
+  validate :validate_complete_value
 
-  after_initialize { self.complete = false }
+  scope :incompleted, -> { where(complete: false) }
+
+  private
+
+  def validate_complete_value
+    return unless complete.nil?
+
+    errors.add(:complete, 'can not be nil')
+  end
 end

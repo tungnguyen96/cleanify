@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_12_035833) do
+ActiveRecord::Schema.define(version: 2019_04_17_134448) do
 
   create_table "activities", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id"
@@ -36,14 +36,10 @@ ActiveRecord::Schema.define(version: 2019_04_12_035833) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "email", null: false
-    t.string "encrypted_password", limit: 128, null: false
-    t.string "confirmation_token", limit: 128
-    t.string "remember_token", limit: 128, null: false
     t.integer "provider_id"
     t.string "provider_name"
     t.string "name"
     t.index ["email"], name: "index_users_on_email"
-    t.index ["remember_token"], name: "index_users_on_remember_token"
   end
 
   create_table "votes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
