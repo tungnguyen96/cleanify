@@ -4,24 +4,25 @@ RSpec.describe API::Activities do
 
   context 'GET /api/activities' do
     it 'return list all not completed activities' do
-      act_1 = Activity.new(id: 1, user_id: 1, task_id: 1, complete: false)
-      act_2 = Activity.new(id: 2, user_id: 1, task_id: 2, complete: false)
-      act_3 = Activity.new(id: 3, user_id: 2, task_id: 2, complete: true)
-      allow(Activity).to receive(:not_completed).and_return([act_1, act_2])
+      user = User.create!(name: "tung", email: "tung@gmail.com")
+      task = Task.create!(title: "test", price: 10)
+      act_1 = Activity.create!(user_id: user.id,
+                               task_id: task.id,
+                               complete: false)
+      act_2 = Activity.create!(user_id: user.id,
+                               task_id: task.id,
+                               complete: true)
       get '/api/activities'
 
       result = JSON.parse(response.body)
       expect(response.status).to eq(200)
       expect(result.fetch('status')).to eq(200)
+      expect(result.fetch('result').size).to eq(1)
       expect(result.fetch('result')).to eq([
         {'id' => act_1.id,
          'user_id' => act_1.user_id,
          'task_id' => act_1.task_id,
-         'complete' => act_1.complete},
-        {'id' => act_2.id,
-         'user_id' => act_2.user_id,
-         'task_id' => act_2.task_id,
-         'complete' => act_2.complete}
+         'complete' => act_1.complete}
         ])
     end
 

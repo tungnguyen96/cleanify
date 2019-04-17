@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   let(:user) do
-    User.new(email: 'foo@mail.com', name: 'bar', password: 'foobar')
+    User.new(email: 'foo@mail.com', name: 'bar')
   end
 
   it 'name must be unique' do
@@ -32,11 +32,5 @@ RSpec.describe User, type: :model do
   it 'email must be in email format' do
     user.email = 'aaaaaaaaa'
     expect(user).not_to be_valid
-  end
-
-  it 'encrypts password on assigning' do
-    user.password = 'foo'
-    expect(user.encrypted_password).not_to be_nil
-    expect(user.encrypted_password).not_to eq(user.password)
   end
 end
