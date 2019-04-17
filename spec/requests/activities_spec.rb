@@ -9,7 +9,7 @@ RSpec.describe API::Activities do
       incompleted_act = Activity.create!(user_id: user.id,
                                task_id: task.id,
                                complete: false)
-      act_2 = Activity.create!(user_id: user.id,
+      completed_act = Activity.create!(user_id: user.id,
                                task_id: task.id,
                                complete: true)
       get '/api/activities'
