@@ -11,6 +11,7 @@ class Activity < ApplicationRecord
 
   def validate_complete_value
     return unless complete.nil?
-    errors.add(:complete, "must be false or true")
+
+    errors.add(:complete, 'must be false or true')
   end
 end
