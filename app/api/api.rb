@@ -4,4 +4,5 @@ class API < Grape::API
   prefix '/api'
 
   mount Tasks::Resources
+  mount Activities::Resources
 end

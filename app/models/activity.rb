@@ -6,4 +6,6 @@ class Activity < ApplicationRecord
   validates :complete, presence: true
 
   after_initialize { self.complete = false }
+
+  scope :not_completed, -> { where(complete: false) }
 end
