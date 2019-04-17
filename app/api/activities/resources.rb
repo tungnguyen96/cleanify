@@ -4,7 +4,7 @@ module Activities
     namespace :activities do
       
       get '' do
-        {'status': 200, 'result': Activity.not_completed}
+        {'status': 200, 'result': Activity.incompleted}
       end
 
       get ':id' do

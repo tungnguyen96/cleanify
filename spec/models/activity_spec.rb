@@ -11,4 +11,9 @@ RSpec.describe Activity, type: :model do
   it 'incompleted as default' do
     expect(Activity.new).not_to be_complete
   end
+
+  it 'complete must be true or false' do
+    activity.complete = ''
+    expect(activity).not_to be_valid
+  end
 end

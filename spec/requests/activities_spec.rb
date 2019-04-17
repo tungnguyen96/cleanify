@@ -3,10 +3,10 @@ require 'rails_helper'
 RSpec.describe API::Activities do
 
   context 'GET /api/activities' do
-    it 'return list all not completed activities' do
+    it 'return list all incompleted activities' do
       user = User.create!(name: "tung", email: "tung@gmail.com")
       task = Task.create!(title: "test", price: 10)
-      act_1 = Activity.create!(user_id: user.id,
+      incompleted_act = Activity.create!(user_id: user.id,
                                task_id: task.id,
                                complete: false)
       act_2 = Activity.create!(user_id: user.id,
@@ -19,15 +19,15 @@ RSpec.describe API::Activities do
       expect(result.fetch('status')).to eq(200)
       expect(result.fetch('result').size).to eq(1)
       expect(result.fetch('result')).to eq([
-        {'id' => act_1.id,
-         'user_id' => act_1.user_id,
-         'task_id' => act_1.task_id,
-         'complete' => act_1.complete}
+        {'id' => incompleted_act.id,
+         'user_id' => incompleted_act.user_id,
+         'task_id' => incompleted_act.task_id,
+         'complete' => incompleted_act.complete}
         ])
     end
 
     it 'return empty array if no activity' do
-      allow(Activity).to receive(:not_completed).and_return([])
+      allow(Activity).to receive(:incompleted).and_return([])
       get '/api/activities'
 
       result = JSON.parse(response.body)

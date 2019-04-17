@@ -5,13 +5,13 @@ class Activity < ApplicationRecord
 
   validate :validate_complete_value
 
-  scope :not_completed, -> { where(complete: false) }
+  scope :incompleted, -> { where(complete: false) }
 
   private
 
   def validate_complete_value
     return unless complete.nil?
 
-    errors.add(:complete, 'must be false or true')
+    errors.add(:complete, 'can not be nil')
   end
 end
