@@ -33,4 +33,28 @@ RSpec.describe User, type: :model do
     user.email = 'aaaaaaaaa'
     expect(user).not_to be_valid
   end
+
+  describe '.by_identifier' do
+    before { user.save }
+
+    it 'returns users by id' do
+      expect(User.by_identifier(user.id).first).to eq(user)
+    end
+
+    it 'returns users by name' do
+      expect(User.by_identifier(user.id).first).to eq(user)
+    end
+
+    it 'does not return user by email' do
+      expect(User.by_identifier(user.email)).to be_empty
+    end
+  end
+
+  describe '#to_hash' do
+    it 'return pre-formatted hash' do
+      expect(user.to_hash).to eq('id': user.id,
+                                 'name': user.name,
+                                 'email': user.email)
+    end
+  end
 end
