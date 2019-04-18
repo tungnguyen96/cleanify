@@ -42,7 +42,7 @@ RSpec.describe User, type: :model do
     end
 
     it 'returns users by name' do
-      expect(User.by_identifier(user.id).first).to eq(user)
+      expect(User.by_identifier(user.name).first).to eq(user)
     end
 
     it 'does not return user by email' do
