@@ -6,4 +6,5 @@ class API < Grape::API
   mount Tasks::Resources
   mount Activities::Resources
   mount Users::Resources
+  mount Healths::Resources
 end
